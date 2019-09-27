@@ -1,0 +1,43 @@
+ARM GAS  startup_stm32f10x.s 			page 1
+
+
+   1              	    .syntax unified
+   2              	    .cpu cortex-m3
+   3              	    .fpu softvfp
+   4              	    .thumb
+   5              	
+   6              	    .global  Default_Handler
+   7              	    .global  g_pfnVectors
+   8              	    .global  .isr_vector
+   9              	
+  10              	
+  11              	    .section  .text.Default_Handler,"ax",%progbits 
+  12              	Default_Handler: 
+  13              	Infinite_Loop: 
+  14 0000 00BF     	    nop
+  15 0002 FDE7     	    b  Infinite_Loop 
+  16              	    .size  Default_Handler, .-Default_Handler 
+  17              	
+  18              	
+  19              	    .section  .isr_vector,"a",%progbits
+  20              	    .type  g_pfnVectors, %object
+  21              	    .size  g_pfnVectors, .-g_pfnVectors
+  22              	    
+  23              	#SP 0x20000000+0x4FFC = 20 476 ~ 20k RAM    
+  24              	g_pfnVectors:
+  25 0000 FC4F0020 	  .word  0x20004FFC 
+  26 0004 00000000 	  .word  main 
+  27 0008 00000000 	  .word  Default_Handler
+  28 000c 00000000 	  .word  Default_Handler
+  29              	   
+ARM GAS  startup_stm32f10x.s 			page 2
+
+
+DEFINED SYMBOLS
+ startup_stm32f10x.s:12     .text.Default_Handler:0000000000000000 Default_Handler
+ startup_stm32f10x.s:24     .isr_vector:0000000000000000 g_pfnVectors
+ startup_stm32f10x.s:13     .text.Default_Handler:0000000000000000 Infinite_Loop
+ startup_stm32f10x.s:14     .text.Default_Handler:0000000000000000 $t
+
+UNDEFINED SYMBOLS
+main

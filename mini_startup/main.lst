@@ -1,0 +1,30 @@
+
+main.elf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+08000000 <main>:
+/* File: main.c */
+ 
+int main(void)
+{
+ 8000000:	b480      	push	{r7}
+ 8000002:	b083      	sub	sp, #12
+ 8000004:	af00      	add	r7, sp, #0
+    int i = 0;
+ 8000006:	2300      	movs	r3, #0
+ 8000008:	607b      	str	r3, [r7, #4]
+ 
+    for (;;) {
+        i++;
+ 800000a:	687b      	ldr	r3, [r7, #4]
+ 800000c:	3301      	adds	r3, #1
+ 800000e:	607b      	str	r3, [r7, #4]
+ 8000010:	e7fb      	b.n	800000a <main+0xa>
+
+Disassembly of section .text.Default_Handler:
+
+08000012 <Default_Handler>:
+ 8000012:	bf00      	nop
+ 8000014:	e7fd      	b.n	8000012 <Default_Handler>
